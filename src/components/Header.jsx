@@ -164,16 +164,6 @@ export default function Header({ cartCount, onOpenCart, onOpenBlueprint }) {
                 </div>
               );
             })}
-
-            {/* Blueprint MD button */}
-            <button
-              onClick={onOpenBlueprint}
-              className="flex items-center gap-1.5 text-xs font-medium text-bakery-muted hover:text-bakery-espresso py-1 px-2.5 rounded-full hover:bg-amber-100/60 transition-all"
-              title="Lihat Dokumen Blueprint PRD"
-            >
-              <FileText className="w-3.5 h-3.5 text-bakery-gold" />
-              <span>Blueprint MD</span>
-            </button>
           </div>
 
           {/* Right Action Buttons with Vertical Divider matching image.png */}
@@ -231,16 +221,6 @@ export default function Header({ cartCount, onOpenCart, onOpenBlueprint }) {
                   {link.name}
                 </a>
               ))}
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onOpenBlueprint();
-                }}
-                className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-bakery-muted rounded-xl hover:bg-amber-100/60 text-left"
-              >
-                <FileText className="w-4 h-4 text-bakery-gold" />
-                <span>Blueprint MD</span>
-              </button>
             </div>
             <div className="pt-2">
               <a
