@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { Agentation } from 'agentation';
+import React, { useState, Suspense, lazy } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import ProductCatalog from './components/ProductCatalog';
@@ -7,14 +6,21 @@ import QualityPillars from './components/QualityPillars';
 import Testimonials from './components/Testimonials';
 import LocationSection from './components/LocationSection';
 import Footer from './components/Footer';
-import CartDrawer from './components/CartDrawer';
-import CheckoutModal from './components/CheckoutModal';
-import BlueprintModal from './components/BlueprintModal';
 import { PRODUCTS } from './data/products';
-import { ShoppingBag, CheckCircle, ArrowRight } from 'lucide-react';
+import { CheckCircle, ArrowRight } from 'lucide-react';
+
+// Code splitting & lazy loading for heavy off-screen modals
+const CartDrawer = lazy(() => import('./components/CartDrawer'));
+const CheckoutModal = lazy(() => import('./components/CheckoutModal'));
+const BlueprintModal = lazy(() => import('./components/BlueprintModal'));
+
+// Agentation visual feedback only loaded in development mode
+const DevAgentation = import.meta.env.DEV
+  ? lazy(() => import('agentation').then((m) => ({ default: m.Agentation })))
+  : () => null;
 
 export default function App() {
-  // Pre-populate 3 items matching the badge '3' in image.png
+  // Pre-populate items matching the badge '3' in image.png
   const [cart, setCart] = useState([
     {
       ...PRODUCTS[0], // Classic Croissant
@@ -126,31 +132,42 @@ export default function App() {
       {/* Footer */}
       <Footer onOpenBlueprint={() => setIsBlueprintOpen(true)} />
 
-      {/* Modals & Slide-over Drawer */}
-      <CartDrawer
-        isOpen={isCartOpen}
-        onClose={() => setIsCartOpen(false)}
-        cartItems={cart}
-        onUpdateQuantity={handleUpdateQuantity}
-        onRemoveItem={handleRemoveItem}
-        onUpdateSliceNote={handleUpdateSliceNote}
-        onProceedToCheckout={() => {
-          setIsCartOpen(false);
-          setIsCheckoutOpen(true);
-        }}
-      />
+      {/* Modals & Slide-over Drawer (Lazy Loaded) */}
+      <Suspense fallback={null}>
+        {isCartOpen && (
+          <CartDrawer
+            isOpen={isCartOpen}
+            onClose={() => setIsCartOpen(false)}
+            cartItems={cart}
+            onUpdateQuantity={handleUpdateQuantity}
+            onRemoveItem={handleRemoveItem}
+            onUpdateSliceNote={handleUpdateSliceNote}
+            onProceedToCheckout={() => {
+              setIsCartOpen(false);
+              setIsCheckoutOpen(true);
+            }}
+          />
+        )}
 
-      <CheckoutModal
-        isOpen={isCheckoutOpen}
-        onClose={() => setIsCheckoutOpen(false)}
-        cartItems={cart}
-        onClearCart={handleClearCart}
-      />
+        {isCheckoutOpen && (
+          <CheckoutModal
+            isOpen={isCheckoutOpen}
+            onClose={() => setIsCheckoutOpen(false)}
+            cartItems={cart}
+            onClearCart={handleClearCart}
+          />
+        )}
 
-      <BlueprintModal
-        isOpen={isBlueprintOpen}
-        onClose={() => setIsBlueprintOpen(false)}
-      />
+        {isBlueprintOpen && (
+          <BlueprintModal
+            isOpen={isBlueprintOpen}
+            onClose={() => setIsBlueprintOpen(false)}
+          />
+        )}
+
+        {/* Development only Agentation Toolbar */}
+        {import.meta.env.DEV && <DevAgentation />}
+      </Suspense>
 
       {/* Toast Notification */}
       {toast && (
@@ -172,9 +189,6 @@ export default function App() {
         </div>
       )}
 
-      {/* Agentation Visual Feedback Toolbar */}
-      <Agentation />
     </div>
   );
 }
-

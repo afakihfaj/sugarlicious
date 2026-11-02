@@ -1,6 +1,8 @@
-import React from 'react';
-import { ArrowRight, MessageCircle, Clock, Sparkles } from 'lucide-react';
-import ThreeCanvas from './ThreeCanvas';
+import React, { Suspense, lazy } from 'react';
+import { ArrowRight, MessageCircle } from 'lucide-react';
+
+// Lazy load 3D Three.js canvas so initial page text & hero CTAs render in <100ms
+const ThreeCanvas = lazy(() => import('./ThreeCanvas'));
 
 export default function Hero({ onExploreMenu }) {
   return (
@@ -106,9 +108,18 @@ export default function Hero({ onExploreMenu }) {
               </div>
             </div>
 
-            {/* 3D Canvas Box */}
-            <div className="w-full relative rounded-3xl p-2 bg-gradient-to-b from-amber-200/20 to-amber-100/10 backdrop-blur-sm border border-amber-200/40 shadow-warm">
-              <ThreeCanvas />
+            {/* 3D Canvas Box with Smooth Skeleton Fallback */}
+            <div className="w-full relative rounded-3xl p-2 bg-gradient-to-b from-amber-200/20 to-amber-100/10 backdrop-blur-sm border border-amber-200/40 shadow-warm min-h-[380px]">
+              <Suspense
+                fallback={
+                  <div className="w-full h-[360px] md:h-[460px] rounded-2xl flex flex-col items-center justify-center bg-amber-50/40">
+                    <div className="w-10 h-10 border-3 border-amber-600 border-t-transparent rounded-full animate-spin mb-3" />
+                    <span className="text-xs font-semibold text-bakery-espresso">Memuat Visual 3D...</span>
+                  </div>
+                }
+              >
+                <ThreeCanvas />
+              </Suspense>
             </div>
 
           </div>
@@ -118,4 +129,3 @@ export default function Hero({ onExploreMenu }) {
     </section>
   );
 }
-
