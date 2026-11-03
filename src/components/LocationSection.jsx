@@ -107,22 +107,37 @@ export default function LocationSection() {
 
           </div>
 
-          {/* Interactive Google Maps Embed */}
-          <div className="lg:col-span-7 rounded-3xl overflow-hidden border border-bakery-border shadow-warm min-h-[350px] relative bg-stone-200">
+          {/* Lightweight Open-Source Map (OpenStreetMap) */}
+          <div className="lg:col-span-7 rounded-3xl overflow-hidden border border-bakery-border shadow-warm min-h-[350px] relative bg-amber-50/50 flex flex-col justify-between">
             <iframe
-              title="Sugarlicious Artisanal Bakehouse Location"
-              src="https://maps.google.com/maps?q=-7.6996365,114.0101403&hl=id&z=17&output=embed"
+              title="Sugarlicious Artisanal Bakehouse OpenStreetMap"
+              src="https://www.openstreetmap.org/export/embed.html?bbox=114.0041403%2C-7.7046365%2C114.0161403%2C-7.6946365&amp;layer=mapnik&amp;marker=-7.6996365%2C114.0101403"
               width="100%"
               height="100%"
-              style={{ border: 0, minHeight: '380px' }}
-              allowFullScreen=""
+              style={{ border: 0, minHeight: '390px' }}
               loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              className="w-full h-full"
+              className="w-full h-full flex-grow"
             />
-            {/* Overlay tag */}
-            <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-bakery-border text-xs font-semibold text-bakery-espresso shadow-md">
-              📍 Sugarlicious Bakehouse
+            
+            {/* Top-left Overlay Pin */}
+            <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-bakery-border text-xs font-semibold text-bakery-espresso shadow-md flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span>📍 Sugarlicious Bakehouse</span>
+              <span className="text-[10px] text-bakery-muted bg-amber-100/70 px-2 py-0.5 rounded-full font-normal">OpenStreetMap</span>
+            </div>
+
+            {/* Bottom Credit & OpenStreetMap Link Bar */}
+            <div className="bg-[#FAF7F2]/95 border-t border-bakery-border/80 px-4 py-2 flex items-center justify-between text-[11px] text-bakery-muted">
+              <span>Peta Open-Source Ringan & Bebas Pelacakan</span>
+              <a
+                href="https://www.openstreetmap.org/?mlat=-7.6996365&amp;mlon=114.0101403#map=17/-7.6996365/114.0101403"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-amber-800 hover:text-amber-950 font-semibold underline underline-offset-2 flex items-center gap-1"
+              >
+                <span>Lihat di OpenStreetMap</span>
+                <Navigation className="w-3 h-3" />
+              </a>
             </div>
           </div>
 

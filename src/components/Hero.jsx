@@ -1,28 +1,35 @@
-import React, { useState, useEffect, Suspense, lazy } from 'react';
-import { ArrowRight, MessageCircle, RotateCcw } from 'lucide-react';
+import React, { useState } from 'react';
+import { ArrowRight, MessageCircle, Sparkles } from 'lucide-react';
 
-// Lazy load 3D Three.js canvas on demand so initial page text, fonts & hero CTAs render in <100ms
-const ThreeCanvas = lazy(() => import('./ThreeCanvas'));
+const HERO_BREADS = [
+  {
+    id: 'sourdough',
+    name: 'Artisan Country Sourdough',
+    label: '🥖 Sourdough Bulat',
+    desc: 'Fermentasi lambat 24 jam dengan wild levain kultur alami.',
+    badge: 'Wild Levain 24 Jam',
+    image: '/hero-sourdough.webp',
+  },
+  {
+    id: 'croissant',
+    name: 'Classic Butter Croissant',
+    label: '🥐 Classic Croissant',
+    desc: 'Laminasi sarang lebah renyah dengan 100% mentega murni Prancis.',
+    badge: '★ Best Seller',
+    image: '/images/products/classic-croissant.webp',
+  },
+  {
+    id: 'shokupan',
+    name: 'Shokupan Milk Loaf',
+    label: '🍞 Shokupan Loaf',
+    desc: 'Metode Yudane khas Jepang, sangat empuk, lembut, dan harum susu.',
+    badge: 'Favorit Sarapan',
+    image: '/images/products/shokupan-loaf.webp',
+  },
+];
 
 export default function Hero({ onExploreMenu }) {
-  const [show3D, setShow3D] = useState(false);
-
-  // Auto-activate 3D on high-end desktop after idle period
-  useEffect(() => {
-    const isDesktop = typeof window !== 'undefined' && window.innerWidth >= 1024;
-    let timer;
-
-    if (isDesktop && 'requestIdleCallback' in window) {
-      const idleId = window.requestIdleCallback(() => {
-        timer = setTimeout(() => setShow3D(true), 3200);
-      }, { timeout: 4000 });
-
-      return () => {
-        window.cancelIdleCallback(idleId);
-        clearTimeout(timer);
-      };
-    }
-  }, []);
+  const [selectedBread, setSelectedBread] = useState(HERO_BREADS[0]);
 
   return (
     <section id="hero" className="relative overflow-hidden pt-6 pb-16 md:pt-12 md:pb-24 bg-gradient-to-b from-bakery-cream via-[#F8F2EA] to-bakery-cream">
@@ -110,7 +117,7 @@ export default function Hero({ onExploreMenu }) {
 
           </div>
 
-          {/* Right Column: 3D Interactive Canvas & Seal Badge */}
+          {/* Right Column: Artisan Bread Showcase & Seal Badge */}
           <div className="lg:col-span-5 relative flex justify-center items-center">
             
             {/* Vintage Artisanal Seal Badge (matching top right in image.png) */}
@@ -127,51 +134,68 @@ export default function Hero({ onExploreMenu }) {
               </div>
             </div>
 
-            {/* Stable Fixed Height Container for Zero CLS (Layout Shift = 0.000) */}
+            {/* Stable Fixed Height Card for Zero CLS (Layout Shift = 0.000) */}
             <div className="w-full h-[440px] sm:h-[480px] md:h-[510px] relative rounded-3xl p-3 bg-gradient-to-b from-amber-200/25 to-amber-100/15 backdrop-blur-sm border border-amber-200/40 shadow-warm flex flex-col justify-between overflow-hidden">
-              {show3D ? (
-                <Suspense
-                  fallback={
-                    <div className="w-full h-full rounded-2xl flex flex-col items-center justify-center bg-amber-50/50">
-                      <div className="w-10 h-10 border-3 border-amber-600 border-t-transparent rounded-full animate-spin mb-3" />
-                      <span className="text-xs font-semibold text-bakery-espresso">Menyiapkan Model 3D...</span>
-                    </div>
-                  }
-                >
-                  <ThreeCanvas onSwitchToPhoto={() => setShow3D(false)} />
-                </Suspense>
-              ) : (
-                <div className="w-full h-full relative rounded-2xl overflow-hidden flex flex-col justify-between bg-gradient-to-b from-[#2A1B14]/5 to-amber-100/20 p-3 sm:p-4">
-                  {/* Immediate High Priority Hero Bread Visual */}
-                  <div className="relative flex-1 w-full flex items-center justify-center overflow-hidden">
-                    <img
-                      src="/hero-sourdough.webp"
-                      alt="Artisan Sourdough Boule Sugarlicious"
-                      width="440"
-                      height="360"
-                      className="w-full h-full max-h-[340px] object-contain drop-shadow-2xl transition-transform duration-700 hover:scale-105"
-                      fetchpriority="high"
-                    />
-                    <div className="absolute inset-0 bg-radial from-amber-300/15 via-transparent to-transparent pointer-events-none" />
+              <div className="w-full h-full relative rounded-2xl overflow-hidden flex flex-col justify-between bg-gradient-to-b from-[#2A1B14]/5 to-amber-100/20 p-3 sm:p-4">
+                
+                {/* Top Badge: Fresh Batch Subuh */}
+                <div className="flex items-center justify-between z-10">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/90 border border-amber-200/80 text-[11px] font-bold text-bakery-espresso shadow-sm">
+                    <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                    <span>{selectedBread.badge}</span>
+                  </span>
+                  <span className="text-[11px] text-bakery-muted font-medium">
+                    Batch 04.00 Subuh
+                  </span>
+                </div>
+
+                {/* Bread Visual (Instant Fast Load, Eager with High Fetch Priority) */}
+                <div className="relative flex-1 w-full flex items-center justify-center overflow-hidden my-2">
+                  <img
+                    key={selectedBread.id}
+                    src={selectedBread.image}
+                    alt={selectedBread.name}
+                    width="440"
+                    height="340"
+                    className="w-full h-full max-h-[300px] object-contain drop-shadow-2xl transition-all duration-500 hover:scale-105"
+                    fetchpriority="high"
+                  />
+                  <div className="absolute inset-0 bg-radial from-amber-300/15 via-transparent to-transparent pointer-events-none" />
+                </div>
+
+                {/* Bread Caption & Interactive Switcher Pills */}
+                <div className="space-y-2 z-10">
+                  <div className="text-center px-2">
+                    <h3 className="font-serif text-lg font-bold text-bakery-espresso">
+                      {selectedBread.name}
+                    </h3>
+                    <p className="text-[11px] sm:text-xs text-bakery-muted line-clamp-1">
+                      {selectedBread.desc}
+                    </p>
                   </div>
 
-                  {/* Bottom Controls Bar */}
-                  <div className="mt-2 flex items-center justify-between gap-2 z-10 px-1">
-                    <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/90 border border-amber-200/70 shadow-sm text-xs font-medium text-bakery-espresso">
-                      <span>🥖</span>
-                      <span className="font-semibold text-[11px] sm:text-xs">Sourdough Bulat</span>
-                    </div>
-
-                    <button
-                      onClick={() => setShow3D(true)}
-                      className="inline-flex items-center gap-1.5 bg-[#213728] hover:bg-[#182C1F] text-amber-200 hover:text-white px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs font-semibold shadow-md hover:shadow-lg transition-all active:scale-95 group"
-                    >
-                      <RotateCcw className="w-3.5 h-3.5 text-amber-400 group-hover:rotate-180 transition-transform duration-500" />
-                      <span>Putar 3D 360°</span>
-                    </button>
+                  {/* Switcher Pills */}
+                  <div className="flex flex-wrap items-center justify-center gap-1.5 pt-1">
+                    {HERO_BREADS.map((bread) => {
+                      const isActive = selectedBread.id === bread.id;
+                      return (
+                        <button
+                          key={bread.id}
+                          onClick={() => setSelectedBread(bread)}
+                          className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 flex items-center gap-1 shadow-sm active:scale-95 ${
+                            isActive
+                              ? 'bg-[#213728] text-white ring-2 ring-amber-400/60 shadow'
+                              : 'bg-white/90 text-bakery-espresso hover:bg-amber-100/70 border border-bakery-border'
+                          }`}
+                        >
+                          <span>{bread.label}</span>
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
-              )}
+
+              </div>
             </div>
 
           </div>

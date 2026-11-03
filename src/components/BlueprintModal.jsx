@@ -46,7 +46,7 @@ export default function BlueprintModal({ isOpen, onClose }) {
                 1. Project Architecture Overview
               </h4>
               <p className="mt-1.5 text-xs text-bakery-cocoa">
-                Single Page Application (SPA) berbasis <strong>React + Vite + Tailwind CSS</strong> dengan <strong>Three.js 3D WebGL Canvas</strong>, katalog dinamis, custom slice requests, keranjang interaktif, dan generator pesanan WhatsApp terenkripsi ke nomor resmi <code>+6281226070170</code>.
+                Single Page Application (SPA) berbasis <strong>React + Vite + Tailwind CSS</strong> dengan <strong>Artisan Bread Showcase Engine</strong>, OpenStreetMap open-source, katalog dinamis, custom slice requests, keranjang interaktif, dan generator pesanan WhatsApp terenkripsi ke nomor resmi <code>+6281226070170</code>.
               </p>
             </div>
 
@@ -61,8 +61,8 @@ export default function BlueprintModal({ isOpen, onClose }) {
                   <div className="text-stone-600 mt-0.5">Tailwind CSS + Google Fonts (Playfair Display & Plus Jakarta Sans) + Anti-UI Slop Tokens.</div>
                 </div>
                 <div className="p-3 bg-stone-50 rounded-xl border border-stone-200">
-                  <div className="font-bold text-bakery-espresso">🥐 3D WebGL Engine:</div>
-                  <div className="text-stone-600 mt-0.5">Three.js custom procedural croissant mesh, golden aroma crumb particle system, 360° inertia orbit.</div>
+                  <div className="font-bold text-bakery-espresso">🥐 Showcase & Maps:</div>
+                  <div className="text-stone-600 mt-0.5">Artisan Bread Showcase lokal WebP (&lt;100KB) + OpenStreetMap open-source map tanpa tracking.</div>
                 </div>
                 <div className="p-3 bg-stone-50 rounded-xl border border-stone-200">
                   <div className="font-bold text-bakery-espresso">🛒 Cart & Checkout:</div>
