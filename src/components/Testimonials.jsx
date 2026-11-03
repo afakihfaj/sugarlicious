@@ -72,13 +72,16 @@ export default function Testimonials() {
                   <img
                     src={item.avatar}
                     alt={item.author}
+                    width="44"
+                    height="44"
                     className="w-11 h-11 rounded-full object-cover border border-amber-200"
                     loading="lazy"
+                    decoding="async"
                   />
                   <div>
-                    <h4 className="font-bold text-sm text-bakery-espresso">
+                    <h3 className="font-bold text-sm text-bakery-espresso">
                       {item.author}
-                    </h4>
+                    </h3>
                     <span className="text-xs text-bakery-muted block">
                       {item.role}
                     </span>

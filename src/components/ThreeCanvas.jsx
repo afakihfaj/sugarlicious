@@ -5,7 +5,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 // Global cache for loaded GLTF models to prevent repeated downloads
 const modelCache = new Map();
 
-export default function ThreeCanvas() {
+export default function ThreeCanvas({ onSwitchToPhoto }) {
   const mountRef = useRef(null);
   const [selectedBread, setSelectedBread] = useState('sourdough'); // 'sourdough' | 'loaf' | 'roll'
   const [loading, setLoading] = useState(false);
@@ -399,10 +399,10 @@ export default function ThreeCanvas() {
   }, [selectedBread]);
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full h-full flex flex-col justify-between">
       {/* 3D Canvas Box */}
       <div
-        className="relative w-full h-[360px] md:h-[460px] cursor-grab active:cursor-grabbing select-none"
+        className="relative w-full flex-1 min-h-[300px] cursor-grab active:cursor-grabbing select-none"
         ref={mountRef}
       >
         {/* Loading Indicator */}
@@ -432,8 +432,8 @@ export default function ThreeCanvas() {
         </div>
       </div>
 
-      {/* Interactive 3D Bread Selector Pills */}
-      <div className="mt-3 flex items-center justify-center gap-2 px-2 z-10 relative">
+      {/* Interactive 3D Bread Selector Pills + Photo Mode button */}
+      <div className="mt-2.5 flex flex-wrap items-center justify-center gap-2 px-1 z-10 relative">
         <button
           onClick={() => setSelectedBread('sourdough')}
           className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 flex items-center gap-1.5 shadow-sm ${
@@ -469,6 +469,17 @@ export default function ThreeCanvas() {
           <span>🥪</span>
           <span>Artisan Roll</span>
         </button>
+
+        {onSwitchToPhoto && (
+          <button
+            onClick={onSwitchToPhoto}
+            className="px-2.5 py-1.5 rounded-full text-xs font-semibold bg-amber-100/80 hover:bg-amber-200/80 text-bakery-espresso border border-amber-300/60 shadow-sm flex items-center gap-1 transition-colors"
+            title="Kembali ke tampilan foto HD"
+          >
+            <span>📷</span>
+            <span>Foto HD</span>
+          </button>
+        )}
       </div>
     </div>
   );

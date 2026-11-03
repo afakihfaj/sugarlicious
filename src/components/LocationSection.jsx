@@ -67,9 +67,9 @@ export default function LocationSection() {
 
               {/* Facilities */}
               <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-bakery-muted mb-3">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-bakery-muted mb-3">
                   Fasilitas Outlet
-                </h4>
+                </h3>
                 <div className="grid grid-cols-2 gap-2.5">
                   {facilities.map((fac, idx) => (
                     <div key={idx} className="flex items-center gap-2 text-xs text-bakery-cocoa font-medium">

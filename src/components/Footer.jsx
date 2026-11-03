@@ -63,9 +63,9 @@ export default function Footer({ onOpenBlueprint }) {
 
           {/* Quick Links */}
           <div className="space-y-3">
-            <h4 className="font-serif text-sm font-bold text-white tracking-wider uppercase">
+            <h3 className="font-serif text-sm font-bold text-white tracking-wider uppercase">
               Eksplorasi
-            </h4>
+            </h3>
             <ul className="space-y-2 text-xs">
               <li><a href="#hero" className="hover:text-amber-300 transition-colors">Beranda</a></li>
               <li><a href="#produk" className="hover:text-amber-300 transition-colors">Galeri Menu Artisan</a></li>
@@ -82,9 +82,9 @@ export default function Footer({ onOpenBlueprint }) {
 
           {/* Menu Categories */}
           <div className="space-y-3">
-            <h4 className="font-serif text-sm font-bold text-white tracking-wider uppercase">
+            <h3 className="font-serif text-sm font-bold text-white tracking-wider uppercase">
               Koleksi Roti
-            </h4>
+            </h3>
             <ul className="space-y-2 text-xs">
               <li><a href="#produk" className="hover:text-amber-300 transition-colors">Classic Croissant</a></li>
               <li><a href="#produk" className="hover:text-amber-300 transition-colors">Shokupan Milk Loaf</a></li>
@@ -97,9 +97,9 @@ export default function Footer({ onOpenBlueprint }) {
 
           {/* Bakehouse Hours & Address */}
           <div className="space-y-3">
-            <h4 className="font-serif text-sm font-bold text-white tracking-wider uppercase">
+            <h3 className="font-serif text-sm font-bold text-white tracking-wider uppercase">
               Jam & Lokasi
-            </h4>
+            </h3>
             <div className="space-y-2 text-xs text-amber-200/70">
               <p className="text-white font-medium">Buka Setiap Hari:</p>
               <p>07.00 - 21.00 WIB</p>

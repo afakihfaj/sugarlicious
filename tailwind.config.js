@@ -13,7 +13,7 @@ export default {
           sand: '#ECE3D7',
           espresso: '#2A1B14',
           cocoa: '#4A372E',
-          muted: '#7A685F',
+          muted: '#5F4D43',
           border: '#EADFD2',
           green: '#213B29',
           'green-dark': '#182C1F',

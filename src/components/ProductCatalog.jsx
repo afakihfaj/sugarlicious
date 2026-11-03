@@ -124,6 +124,8 @@ export default function ProductCatalog({ onAddToCart, favorites, onToggleFavorit
                   <img
                     src={product.image}
                     alt={product.name}
+                    width="360"
+                    height="270"
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
                     decoding="async"

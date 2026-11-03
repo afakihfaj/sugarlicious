@@ -33,20 +33,24 @@ export default function QualityPillars({ onExploreProcess }) {
           <div className="lg:col-span-5 relative">
             <div className="relative rounded-3xl overflow-hidden border border-emerald-800/40 shadow-2xl group">
               <img
-                src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80"
+                src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=75&fm=webp"
                 alt="Proses pembuatan roti artisan Sugarlicious"
+                width="600"
+                height="400"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-[400px] object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-bakery-green-bg/80 via-transparent to-transparent" />
               
-              <div className="absolute bottom-6 left-6 right-6 p-4 rounded-2xl bg-black/40 backdrop-blur-md border border-white/10">
+              <div className="absolute bottom-6 left-6 right-6 p-4 rounded-2xl bg-black/50 backdrop-blur-md border border-white/10">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-bakery-gold/20 flex items-center justify-center text-bakery-gold">
                     🥖
                   </div>
                   <div>
-                    <h4 className="text-sm font-semibold text-white">Daily Baking at 04.00 AM</h4>
-                    <p className="text-xs text-amber-200/80">Batch fresh baru keluar dari panggangan setiap subuh.</p>
+                    <div className="text-sm font-semibold text-white">Daily Baking at 04.00 AM</div>
+                    <p className="text-xs text-amber-100">Batch fresh baru keluar dari panggangan setiap subuh.</p>
                   </div>
                 </div>
               </div>
@@ -65,14 +69,14 @@ export default function QualityPillars({ onExploreProcess }) {
                 Proses Alami,<br />
                 Hasil <span className="italic font-normal text-amber-300">Istimewa.</span>
               </h2>
-              <p className="text-amber-100/80 text-sm sm:text-base leading-relaxed max-w-xl">
+              <p className="text-amber-100 text-sm sm:text-base leading-relaxed max-w-xl">
                 Kami percaya, roti yang enak butuh waktu. Karena itu, kami menggunakan bahan terbaik, fermentasi alami, dan teknik artisan untuk rasa dan tekstur yang lebih kaya dan autentik.
               </p>
               
               <div className="pt-2">
                 <a
                   href="#lokasi"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-amber-300/40 text-amber-200 hover:text-white hover:border-amber-300 text-xs sm:text-sm font-semibold transition-colors duration-200"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-amber-300/60 text-amber-100 hover:text-white hover:border-amber-300 text-xs sm:text-sm font-semibold transition-colors duration-200"
                 >
                   <span>Lihat Proses Kami</span>
                   <ArrowRight className="w-4 h-4" />
@@ -91,7 +95,7 @@ export default function QualityPillars({ onExploreProcess }) {
                     <h3 className="font-semibold text-white text-base sm:text-lg">
                       {pillar.title}
                     </h3>
-                    <p className="text-xs sm:text-sm text-emerald-100/70 mt-0.5 leading-relaxed">
+                    <p className="text-xs sm:text-sm text-emerald-100 mt-0.5 leading-relaxed">
                       {pillar.description}
                     </p>
                   </div>
