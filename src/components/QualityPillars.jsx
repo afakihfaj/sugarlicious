@@ -33,7 +33,7 @@ export default function QualityPillars({ onExploreProcess }) {
           <div className="lg:col-span-5 relative">
             <div className="relative rounded-3xl overflow-hidden border border-emerald-800/40 shadow-2xl group">
               <img
-                src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=75&fm=webp"
+                src="/images/baker-process.webp"
                 alt="Proses pembuatan roti artisan Sugarlicious"
                 width="600"
                 height="400"

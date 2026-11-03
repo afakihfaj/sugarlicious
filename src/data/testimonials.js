@@ -5,7 +5,7 @@ export const TESTIMONIALS = [
     author: "Nadia P.",
     role: "Food Enthusiast",
     rating: 5,
-    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&h=200&q=80",
+    avatar: "/images/avatars/avatar-1.webp",
     favoriteItem: "Classic Croissant"
   },
   {
@@ -14,7 +14,7 @@ export const TESTIMONIALS = [
     author: "Ibu Rani",
     role: "Pelanggan Keluarga",
     rating: 5,
-    avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&h=200&q=80",
+    avatar: "/images/avatars/avatar-2.webp",
     favoriteItem: "Shokupan Loaf (1.8 cm)"
   },
   {
@@ -23,7 +23,7 @@ export const TESTIMONIALS = [
     author: "Dimas A.",
     role: "Pemilik Kafe",
     rating: 5,
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&h=200&q=80",
+    avatar: "/images/avatars/avatar-3.webp",
     favoriteItem: "Pain au Chocolat"
   },
   {
@@ -32,7 +32,7 @@ export const TESTIMONIALS = [
     author: "Chef Hendra",
     role: "Artisan Baker & Consultant",
     rating: 5,
-    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&h=200&q=80",
+    avatar: "/images/avatars/avatar-4.webp",
     favoriteItem: "Almond Croissant Deluxe"
   }
 ];
