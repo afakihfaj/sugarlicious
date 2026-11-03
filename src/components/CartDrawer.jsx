@@ -102,6 +102,10 @@ export default function CartDrawer({
                     <img
                       src={item.image}
                       alt={item.name}
+                      width="64"
+                      height="64"
+                      loading="lazy"
+                      decoding="async"
                       className="w-16 h-16 rounded-xl object-cover border border-bakery-border flex-shrink-0"
                     />
 

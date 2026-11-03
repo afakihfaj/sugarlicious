@@ -1,15 +1,17 @@
 import React, { useState, Suspense, lazy } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
-import ProductCatalog from './components/ProductCatalog';
-import QualityPillars from './components/QualityPillars';
-import Testimonials from './components/Testimonials';
-import LocationSection from './components/LocationSection';
-import Footer from './components/Footer';
 import { PRODUCTS } from './data/products';
 import { CheckCircle, ArrowRight } from 'lucide-react';
 
-// Code splitting & lazy loading for heavy off-screen modals
+// Below-the-fold component lazy loading (Code-Splitting for blazing fast initial paint)
+const ProductCatalog = lazy(() => import('./components/ProductCatalog'));
+const QualityPillars = lazy(() => import('./components/QualityPillars'));
+const Testimonials = lazy(() => import('./components/Testimonials'));
+const LocationSection = lazy(() => import('./components/LocationSection'));
+const Footer = lazy(() => import('./components/Footer'));
+
+// Off-screen modals lazy loaded only when triggered by user
 const CartDrawer = lazy(() => import('./components/CartDrawer'));
 const CheckoutModal = lazy(() => import('./components/CheckoutModal'));
 const BlueprintModal = lazy(() => import('./components/BlueprintModal'));
@@ -18,6 +20,14 @@ const BlueprintModal = lazy(() => import('./components/BlueprintModal'));
 const DevAgentation = import.meta.env.DEV
   ? lazy(() => import('agentation').then((m) => ({ default: m.Agentation })))
   : () => null;
+
+// Lightweight skeleton to prevent layout shift during chunk load
+const SectionSkeleton = ({ height = 'min-h-[400px]' }) => (
+  <div className={`w-full ${height} flex flex-col items-center justify-center bg-bakery-cream/50 py-16`}>
+    <div className="w-8 h-8 rounded-full border-2 border-amber-600/30 border-t-amber-700 animate-spin mb-2" />
+    <span className="text-xs text-bakery-muted font-medium">Memuat Konten...</span>
+  </div>
+);
 
 export default function App() {
   // Pre-populate items matching the badge '3' in image.png
@@ -109,7 +119,7 @@ export default function App() {
   return (
     <div className="min-h-screen flex flex-col bg-bakery-cream text-bakery-espresso selection:bg-bakery-gold/25 selection:text-bakery-espresso">
       
-      {/* Navbar with announcement bar */}
+      {/* Navbar with announcement bar (Loaded immediately) */}
       <Header
         cartCount={cartTotalCount}
         onOpenCart={() => setIsCartOpen(true)}
@@ -118,21 +128,37 @@ export default function App() {
 
       {/* Main Content Sections */}
       <main className="flex-grow">
+        {/* Hero Section (Above the fold, loaded immediately) */}
         <Hero onExploreMenu={() => scrollToSection('produk')} />
-        <ProductCatalog
-          onAddToCart={handleAddToCart}
-          favorites={favorites}
-          onToggleFavorite={handleToggleFavorite}
-        />
-        <QualityPillars onExploreProcess={() => scrollToSection('lokasi')} />
-        <Testimonials />
-        <LocationSection />
+
+        {/* Below-the-fold sections with Lazy Loading */}
+        <Suspense fallback={<SectionSkeleton height="min-h-[500px]" />}>
+          <ProductCatalog
+            onAddToCart={handleAddToCart}
+            favorites={favorites}
+            onToggleFavorite={handleToggleFavorite}
+          />
+        </Suspense>
+
+        <Suspense fallback={<SectionSkeleton height="min-h-[400px]" />}>
+          <QualityPillars onExploreProcess={() => scrollToSection('lokasi')} />
+        </Suspense>
+
+        <Suspense fallback={<SectionSkeleton height="min-h-[380px]" />}>
+          <Testimonials />
+        </Suspense>
+
+        <Suspense fallback={<SectionSkeleton height="min-h-[420px]" />}>
+          <LocationSection />
+        </Suspense>
       </main>
 
-      {/* Footer */}
-      <Footer onOpenBlueprint={() => setIsBlueprintOpen(true)} />
+      {/* Footer (Lazy Loaded) */}
+      <Suspense fallback={null}>
+        <Footer onOpenBlueprint={() => setIsBlueprintOpen(true)} />
+      </Suspense>
 
-      {/* Modals & Slide-over Drawer (Lazy Loaded) */}
+      {/* Modals & Slide-over Drawer (Lazy Loaded on Demand) */}
       <Suspense fallback={null}>
         {isCartOpen && (
           <CartDrawer
